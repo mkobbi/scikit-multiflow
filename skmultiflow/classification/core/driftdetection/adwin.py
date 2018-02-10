@@ -1,6 +1,7 @@
 __author__ = 'Guilherme Matsumoto'
 
 import numpy as np
+
 from skmultiflow.classification.core.driftdetection.base_drift_detector import BaseDriftDetector
 from skmultiflow.core.base_object import BaseObject
 
@@ -50,7 +51,7 @@ class ADWIN(BaseDriftDetector):
     """
     MAXBUCKETS = 5
 
-    def __init__(self, delta=.002, clock = None):
+    def __init__(self, delta: object = .002, clock: object = None) -> object:
         super().__init__()
         # default values affected by init_bucket()
         self.delta = delta
