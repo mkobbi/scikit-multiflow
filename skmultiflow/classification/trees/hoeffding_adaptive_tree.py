@@ -3,6 +3,7 @@ from random import random
 
 import numpy as np
 
+import skmultiflow.classification.core.utils.utils as utils
 from skmultiflow.classification.core.driftdetection.adwin import ADWIN
 from skmultiflow.classification.trees.hoeffding_tree import HoeffdingTree
 
