@@ -146,6 +146,7 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
             if self._error_change is True:
                 # Start a new alternative tree: learning node
                 self._alternate_tree = ht._new_learning_node()
+                print('')
                 ht._alternate_trees += 1
             elif self._alternate_tree is not None & & self._alternate_tree.is_null_error() is False:
                 old_error_rate = self.get_error_estimation()
