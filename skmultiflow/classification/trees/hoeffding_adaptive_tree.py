@@ -3,6 +3,10 @@ from random import random
 
 from skmultiflow.classification.core.driftdetection.adwin import ADWIN
 from skmultiflow.classification.trees.hoeffding_tree import HoeffdingTree
+from skmultiflow.classification.naive_bayes import NaiveBayes
+from skmultiflow.classification.core.conditional_tests.instance_conditional_test import InstanceConditionalTest
+
+import skmultiflow.classification.core.utils.utils
 
 __version__ = '0.1'
 
@@ -65,12 +69,12 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
         _classifier_random = random()
 
         # A revoir
-        def calc_byte_size(self):
-            __sizeof__()
-            return super().calcByteSize() + int(SizeOf.sizeOf(self.children) + SizeOf.fullSizeOf(self.splitTest));
+       # def calc_byte_size(self):
+            #__sizeof__()
+           # return super().calcByteSize() + int(SizeOf.sizeOf(self.children) + SizeOf.fullSizeOf(self.splitTest));
 
         def calc_byte_size_including_subtree(self):
-            byte_size = calc_byte_size()
+            byte_size =   self.calc_byte_size_including_subtree()
             if self._alternate_tree is not None:
                 byte_size += self._alternate_tree.calc_byte_size_including_subtree()
             if self._estimation_error_weight is not None:
@@ -100,3 +104,20 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
 
         def filter_instance_to_leaves(self, instance, myparent, parent_branch, found_nodes, update_splitter_counts):
             pass
+
+    class AdaLearningNode(HoeffdingTree.LearningNodeNBAdaptive, NewNode):
+        _alternate_tree = HoeffdingTree.Node()
+        _estimation_error_weight = ADWIN()
+        _error_change = False
+        _random_seed = 1
+        _classifier_random = random()
+
+
+        def calcByteSize(self):
+            byteSize = HoeffdingTree.LearningNodeNBAdaptive.calcByteSize()
+            if self._estimation_error_weight is not None:
+
+                byteSize += self.estimation_error_weight.measureByteSize();
+
+            return byteSize;
+        }
