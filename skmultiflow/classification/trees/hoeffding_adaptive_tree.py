@@ -1,15 +1,14 @@
 from abc import abstractmethod, ABCMeta
-from random import random
+from random import Random
 
 import numpy as np
 
 import skmultiflow.classification.core.utils.utils as utils
 from skmultiflow.classification.core.driftdetection.adwin import ADWIN
-# from skmultiflow.classification.trees.hoeffding_adaptive_tree import HoeffdingAdaptiveTree
 from skmultiflow.classification.trees.hoeffding_tree import HoeffdingTree
 
 __author__ = 'Nehed ZOUAOUI, Mahmoud KOBBI, Jawher SOUDANI'
-__version__ = '0.1'
+__version__ = '0.2'
 
 
 class HoeffdingAdaptiveTree(HoeffdingTree):
@@ -52,15 +51,12 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
         # Change for adwin
         # public boolean getErrorChange();
         @abstractmethod
-        @property
         def number_leaves(self): raise NotImplementedError
 
         @abstractmethod
-        @property
         def get_error_estimation(self): raise NotImplementedError
 
         @abstractmethod
-        @property
         def get_error_width(self): raise NotImplementedError
 
         @abstractmethod
@@ -89,7 +85,7 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
             self._estimation_error_weight = ADWIN()
             self._error_change = False
             self._random_seed = 1
-            self._classifier_random = random.Random()
+            self._classifier_random = Random()
             self._classifier_random.seed(seed=self._random_seed)
 
         def calc_byte_size_including_subtree(self):
@@ -241,7 +237,7 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
         def __init__(self, initial_class_observations):
             super(HoeffdingAdaptiveTree.AdaLearningNode, self).__init__(initial_class_observations)
             self._random_seed = 1
-            self._classifier_random = random.Random()
+            self._classifier_random = Random()
             self._classifier_random.seed(self._random_seed)
             self._alternate_tree = HoeffdingTree.Node()
             self._estimation_error_weight = ADWIN()
@@ -290,7 +286,6 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
             weighted_inst = weight
             if k > 0:
                 weighted_inst = weight * k
-
             # class_prediction = np.argmax(self.get_class_votes(X, y, weight, ht))
             # blCorrect = (trueClass == ClassPrediction)
             if self._estimation_error_weight is not None:
