@@ -1,11 +1,11 @@
 __author__ = 'Jacob Montiel'
 
-import sys
 import logging
+import sys
 import textwrap
 from abc import ABCMeta
 from operator import attrgetter
-from skmultiflow.core.utils.utils import *
+
 from skmultiflow.classification.base import BaseClassifier
 from skmultiflow.classification.core.attribute_class_observers.gaussian_numeric_attribute_class_observer \
     import GaussianNumericAttributeClassObserver
@@ -17,6 +17,7 @@ from skmultiflow.classification.core.attribute_split_suggestion import Attribute
 from skmultiflow.classification.core.split_criteria.gini_split_criterion import GiniSplitCriterion
 from skmultiflow.classification.core.split_criteria.info_gain_split_criterion import InfoGainSplitCriterion
 from skmultiflow.classification.core.utils.utils import do_naive_bayes_prediction
+from skmultiflow.core.utils.utils import *
 
 GINI_SPLIT = 'gini'
 INFO_GAIN_SPLIT = 'info_gain'
@@ -456,7 +457,7 @@ class HoeffdingTree(BaseClassifier):
             """ LearningNode class constructor. """
             super().__init__(initial_class_observations)
 
-        def learn_from_instance(self, X, y, weight, ht):
+        def learn_from_instance(self, X, y, weight, ht, parent=None, parent_branch=-1):
             """Update the node with the provided instance.
 
             Parameters
@@ -469,6 +470,11 @@ class HoeffdingTree(BaseClassifier):
                 Instance weight.
             ht: HoeffdingTree
                 Hoeffding Tree to update.
+            parent: SplitNode
+                Always equal to None. Needed for compatibility issues
+            parent_branch: int
+                Always equal to -1. Needed for compatibility issues
+
 
             """
             pass
@@ -486,7 +492,7 @@ class HoeffdingTree(BaseClassifier):
             """ InactiveLearningNode class constructor. """
             super().__init__(initial_class_observations)
 
-        def learn_from_instance(self, X, y, weight, ht):
+        def learn_from_instance(self, X, y, weight, ht, parent=None, parent_branch=-1):
             """Update the node with the provided instance.
 
             Parameters
@@ -499,6 +505,11 @@ class HoeffdingTree(BaseClassifier):
                 Instance weight.
             ht: HoeffdingTree
                 Hoeffding Tree to update.
+            parent: SplitNode
+                Always equal to None. Needed for compatibility issues
+            parent_branch: int
+                Always equal to -1. Needed for compatibility issues
+
 
             """
             if y > len(self._observed_class_distribution) - 1:
@@ -523,7 +534,7 @@ class HoeffdingTree(BaseClassifier):
             self._is_initialized = False
             self._attribute_observers = []
 
-        def learn_from_instance(self, X, y, weight, ht):
+        def learn_from_instance(self, X, y, weight, ht, parent=None, parent_branch=-1):
             """Update the node with the provided instance.
 
             Parameters
@@ -536,6 +547,11 @@ class HoeffdingTree(BaseClassifier):
                 Instance weight.
             ht: HoeffdingTree
                 Hoeffding Tree to update.
+            parent: SplitNode
+                Always equal to None. Needed for compatibility issues
+            parent_branch: int
+                Always equal to -1. Needed for compatibility issues
+
 
             """
             if not self._is_initialized:
@@ -692,7 +708,7 @@ class HoeffdingTree(BaseClassifier):
             self._mc_correct_weight = 0.0
             self._nb_correct_weight = 0.0
 
-        def learn_from_instance(self, X, y, weight, ht):
+        def learn_from_instance(self, X, y, weight, ht, parent=None, parent_branch=-1):
             """Update the node with the provided instance.
 
             Parameters
@@ -702,9 +718,14 @@ class HoeffdingTree(BaseClassifier):
             y: int
                 Instance class.
             weight: float
-                The instance's weight.
+                Instance weight.
             ht: HoeffdingTree
-                The Hoeffding Tree to update.
+                Hoeffding Tree to update.
+            parent: SplitNode
+                Always equal to None. Needed for compatibility issues
+            parent_branch: int
+                Always equal to -1. Needed for compatibility issues
+
 
             """
             if self._observed_class_distribution == {}:
@@ -1044,7 +1065,7 @@ class HoeffdingTree(BaseClassifier):
         -------
         list
             Predicted labels for all instances in X.
-
+fff
         """
         r, _ = get_dimensions(X)
         predictions = []

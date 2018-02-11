@@ -366,6 +366,17 @@ class ADWIN(BaseDriftDetector):
                ' - time: ' + str(self.mint_time) + \
                ' - num_detections: ' + str(self.num_detections)
 
+    def measure_byte_size(self):
+        """Calculate the size of the ADWIN instance.
+
+        Returns
+        -------
+        int
+            Size of the tree in bytes.
+
+        """
+        return self.__sizeof__()
+
 
 class List(BaseObject):
     """ A linked list object for ADWIN algorithm.
