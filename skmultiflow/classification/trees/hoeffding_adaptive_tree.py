@@ -86,7 +86,7 @@ class HoeffdingAdaptiveTree(HoeffdingTree):
             self._error_change = False
             self._random_seed = 1
             self._classifier_random = Random()
-            self._classifier_random.seed(seed=self._random_seed)
+            self._classifier_random.seed(self._random_seed)
 
         def calc_byte_size_including_subtree(self):
             byte_size = self.calc_byte_size_including_subtree()
