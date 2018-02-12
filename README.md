@@ -20,7 +20,8 @@ Inspired by [MOA](https://moa.cms.waikato.ac.nz/) and [MEKA](http://meka.sourcef
 * Guilherme KURIKE MATSUMOTO
 
 ### Hoeffding Tree Slides
-* [Presentation](https://1drv.ms/p/s!AtA6IssYwQFr81vsDAmb7rsZpibN)
+* [OneDrive](https://1drv.ms/p/s!AtA6IssYwQFr81vsDAmb7rsZpibN)
+* [Sync.com](https://ln.sync.com/dl/b4d58aef0/be4z3s7g-wrjyradr-5yqgjd7m-7axt3aki)
 
 ### matplotlib backend considerations
 * You may need to change your matplotlib backend, because not all backends work
